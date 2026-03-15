@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV["DB_HOST"] %>
+  port: <%= ENV["DB_PORT"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: occultae_development
+
+test:
+  <<: *default
+  database: occultae_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: occultae_production
+    username: occultae
+    password: <%= ENV["OCCULTAE_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: occultae_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: occultae_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: occultae_production_cable
+    migrations_paths: db/cable_migrate

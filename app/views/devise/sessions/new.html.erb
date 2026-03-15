@@ -1,0 +1,19 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="input-group mb-1">
+    <span class="input-group-text input-group-text-fixed bg-primary text-white">
+      <i class="fa-solid fa-user"></i>&nbsp;<%= f.label :username %>
+    </span>
+    <%= f.text_field :username, class: 'form-control' %>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text input-group-text-fixed bg-primary text-white">
+      <i class="fa-solid fa-key"></i>&nbsp;<%= f.label :password %>
+    </span>
+    <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+  </div>
+  <div class="d-grid mb-1 mt-1">
+    <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+      <i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Accedi
+    <% end %>
+  <% end %>
+  <%= render "devise/shared/links" %>

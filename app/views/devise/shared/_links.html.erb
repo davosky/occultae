@@ -1,0 +1,10 @@
+<%- if controller_name != 'sessions' %>
+  <p class="mt-5"><%= link_to "Log in", new_session_path(resource_name) %></p>
+<% end %>
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <p class="mt-5">
+    <span class="float-end">
+      <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %>
+    </span>
+  </p>
+<% end %>

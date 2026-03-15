@@ -1,0 +1,52 @@
+<div class="row mb-3">
+  <div class="col-12">
+    <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+      <div class="container-fluid">
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <%= image_tag("navbar/navbar-logo.svg", class: "img-fluid", alt: "navbar-logo") %>
+        <% end %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav me-auto">
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <%= link_to edit_supervisor_registration_path, class: "nav-link" do %>
+                <i class="fa-solid fa-user-circle"></i>
+                &nbsp;
+                <%= "#{current_supervisor.first_name} #{current_supervisor.last_name}".html_safe %>
+              <% end %>
+            </li>
+            <li class="nav-item dropstart">
+              <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <% if current_supervisor.boss == true %>
+                  <%= link_to admin_root_path, class: "dropdown-item" do %>
+                    <i class="fa-solid fa-wrench"></i>
+                    &nbsp;
+                    Amministrazione
+                  <% end %>
+                <% end %>
+                <%= link_to home_credits_path, method: :get, class: "dropdown-item" do %>
+                  <i class="fa-solid fa-user-gear"></i>
+                  &nbsp;
+                  Crediti
+                <% end %>
+                <%= link_to destroy_supervisor_session_path, method: :get, class: "dropdown-item" do %>
+                  <i class="fa-solid fa-door-open"></i>
+                  &nbsp;
+                  Esci
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </nav>
+</div>
+</div>

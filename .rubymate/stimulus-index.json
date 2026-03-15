@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "indexedAt": 1773584541508,
+  "controllers": {
+    "hello": {
+      "filePath": "/home/davo/Programmazione/000_A8/occultae/app/javascript/controllers/hello_controller.js",
+      "targets": [],
+      "values": [],
+      "outlets": [],
+      "actions": [],
+      "classes": [],
+      "mtime": 1773583818632.6987
+    }
+  }
+}
