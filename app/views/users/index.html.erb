@@ -1,0 +1,123 @@
+<div class="col-12">
+  <p>
+    <%= image_tag "users/users-logo.svg", class: "ms-3", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Utenti</span>
+    <span class="float-end">
+      <%= link_to new_user_path, class: "btn btn-success me-3" do %>
+        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-circle-user"></i>
+        &emsp;
+        Inserisci un nuovo Utente
+      <% end %>
+    </span>
+  </p>
+  <hr class="m-3">
+  <div class="card bg-white border mt-3 p-3">
+    <%= search_form_with @q, id: "search-form", url: users_path do |form| %>
+      <div class="row">
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-circle-user"></i>
+              &emsp;<span>Nome Utente</span>
+            </div>
+            <%= form.text_field :username_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-user"></i>
+              &emsp;<span>Nome</span>
+            </div>
+            <%= form.text_field :first_name_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-users"></i>
+              &emsp;<span>Cognome</span>
+            </div>
+            <%= form.text_field :last_name_cont, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-square"></i>
+              &emsp;<span>Categoria</span>
+            </div>
+            <%= form.text_field :category_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-location-pin"></i>
+              &emsp;<span>Regione</span>
+            </div>
+            <%= form.text_field :region_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-location-dot"></i>
+              &emsp;<span>Provincia</span>
+            </div>
+            <%= form.text_field :province_cont, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+          <div class="d-grid">
+            <%= button_tag(type: "submit", class: "btn btn-secondary") do %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              &emsp;
+              <strong>
+                Cerca
+              </strong>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-4"></div>
+      </div>
+    <% end %>
+  </div>
+  <div class="card bg-white border mt-3 p-3">
+    <table id="users" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <i class="fa-solid fa-circle-user"></i>&nbsp;Nome Utente
+          </th>
+          <th>
+            <i class="fa-solid fa-user"></i>&nbsp;Nome
+          </th>
+          <th>
+            <i class="fa-solid fa-user-group"></i>&nbsp;Cognome
+          </th>
+          <th>
+            <i class="fa-solid fa-square"></i>&nbsp;Categoria
+          </th>
+          <th>
+            <i class="fa-solid fa-location-pin"></i>&nbsp;Regione
+          </th>
+          <th>
+            <i class="fa-solid fa-location-dot"></i>&nbsp;Provincia
+          </th>
+          <th colspan=2></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <%= render user %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

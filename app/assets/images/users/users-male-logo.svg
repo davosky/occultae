@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
-   sodipodi:docname="supervisors-male-logo.svg"
+   sodipodi:docname="users-male-logo.svg"
    xml:space="preserve"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -90,7 +90,7 @@
        fill="#d5e1ed"
        fill-rule="evenodd"
        id="path2"
-       style="stroke-width:3.42505;fill:#d9230f;fill-opacity:1" /><path
+       style="stroke-width:3.42505;fill:#bbbbbb;fill-opacity:1" /><path
        d="m 85.850567,85.002017 v 7.461624 C 79.822522,103.23521 55.162336,103.41934 50.947088,84.594302 Z"
        fill-rule="evenodd"
        opacity="0.11"
@@ -115,7 +115,7 @@
        fill="#ecbe6a"
        fill-rule="evenodd"
        id="path7-6"
-       style="stroke-width:3.42505" /><path
+       style="stroke-width:3.42505;fill:#777777;fill-opacity:1" /><path
        d="M 50.975585,92.457065 A 38.119167,38.119167 0 0 0 68.419652,106.5868 l -11.35903,11.7251 -14.44758,-22.148135 z"
        fill="#ffffff"
        fill-rule="evenodd"
@@ -130,9 +130,9 @@
        fill="#3dbc93"
        fill-rule="evenodd"
        id="path10"
-       style="stroke-width:3.42505;fill:#00ccff;fill-opacity:1" /><path
+       style="stroke-width:3.42505;fill:#d9230f;fill-opacity:1" /><path
        d="m 62.411335,112.7924 5.999549,-6.17491 5.997357,6.17491 -5.997357,6.17491 z"
        fill="#3dbc93"
        fill-rule="evenodd"
        id="path11"
-       style="stroke-width:3.42505;fill:#00ccff;fill-opacity:1" /></g></svg>
+       style="stroke-width:3.42505;fill:#d9230f;fill-opacity:1" /></g></svg>

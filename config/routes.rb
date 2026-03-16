@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :users do
+    member do
+      get :confirm_delete
+    end
+  end
+
   # Administrate
   namespace :admin do
       resources :supervisors

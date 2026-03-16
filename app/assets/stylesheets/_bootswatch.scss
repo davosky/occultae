@@ -182,3 +182,29 @@ label {
     color: $dark;
   }
 }
+
+// Customs
+
+.supervisors-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+}
+
+.nav-supervisors:hover .supervisors-icon {
+  content: url("supervisors/supervisors-hover-icon.svg");
+}
+
+.users-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+}
+
+.nav-users:hover .users-icon {
+  content: url("users/users-hover-icon.svg");
+}
+
+.card {
+  border-radius: 0%;
+}

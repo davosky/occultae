@@ -8,7 +8,8 @@ it:
         next: Prossima
         previous: Precedente
     models:
-      supervisor: Supervisore
+      supervisor: Supervisori
+      user: Utenti
     attributes:
       supervisor:
         username: Nome Utente
@@ -39,7 +40,24 @@ it:
         regular: Regolare
         created_at: Creato Il
         updated_at: Aggiornato il
-        supervisors: Supervisori
+      user:
+        username: Nome Utente
+        email: E-Mail
+        password: Password
+        first_name: Nome
+        last_name: Cognome
+        gender: Sesso
+        fiscal_code: Codice Fiscale
+        birth_date: Data di Nascita
+        birth_place: Luogo di Nascita
+        category: Categoria
+        region: Regione
+        province: Provincia
+        institute: Istituto
+        office: Ufficio
+        created_at: Creato Il
+        updated_at: Aggiornato il
+        groups: Gruppi
     errors:
       messages:
         record_invalid: "Validazione fallita: %{errors}"

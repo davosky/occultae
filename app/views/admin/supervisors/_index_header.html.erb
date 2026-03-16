@@ -1,9 +1,12 @@
 <% content_for(:title) do %>
-  <%= image_tag("supervisors/supervisors-neutral-logo.svg", class: "img-fluid", size: "58x58", alt: "logo") %>
   <%= display_resource_name(page.resource_name) %>
 <% end %>
 <header class="main-content__header">
   <h1 class="main-content__page-title" id="page-title">
+    <%= image_tag("admin/admin-logo.svg", class: "img-fluid", alt: "admin-logo") %>
+    &nbsp;
+    <%= image_tag("supervisors/supervisors-neutral-logo.svg", class: "img-fluid", size: "32x32", alt: "supervisors-neutral-logo") %>
+    &nbsp;
     <%= content_for(:title) %>
   </h1>
   <%= content_for(:header_middle) %>

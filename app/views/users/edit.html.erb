@@ -1,0 +1,11 @@
+<div class="col-12 bg-light border p-3">
+  <p>
+    <%= image_tag "users/users-logo.svg", class: "ms-3 users-logo", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Aggiorna Utente</span>
+    <span class="float-end">
+      <%= link_to "Chiudi", users_path, class: "btn btn-light" %>
+    </span>
+  </p>
+  <hr class="m-3"/>
+  <%= render "form", user: @user %>
+</div>

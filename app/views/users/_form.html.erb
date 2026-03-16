@@ -1,0 +1,111 @@
+<div class="row p-3">
+  <%= form_with(model: user) do |form| %>
+    <% if user.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(user.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-6">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-circle-user"></i>&emsp;<%= form.label :username %>
+          </span>
+          <%= form.text_field :username, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-at"></i>&emsp;<%= form.label :email %>
+          </span>
+          <%= form.text_field :email, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-key"></i>&emsp;<%= form.label :password %>
+          </span>
+          <%= form.text_field :password, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-user"></i>&emsp;<%= form.label :first_name %>
+          </span>
+          <%= form.text_field :first_name, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-user-group"></i>&emsp;<%= form.label :last_name %>
+          </span>
+          <%= form.text_field :last_name, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-mars-and-venus"></i>&emsp;<%= form.label :gender %>
+          </span>
+          <%= form.text_field :gender, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-id-badge"></i>&emsp;<%= form.label :fiscal_code %>
+          </span>
+          <%= form.text_field :fiscal_code, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-calendar-day"></i>&emsp;<%= form.label :birth_date %>
+          </span>
+          <%= form.date_field :birth_date, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-city"></i>&emsp;<%= form.label :birth_place %>
+          </span>
+          <%= form.text_field :birth_place, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-square"></i>&emsp;<%= form.label :category %>
+          </span>
+          <%= form.text_field :category, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-location-pin"></i>&emsp;<%= form.label :region %>
+          </span>
+          <%= form.text_field :region, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-location-dot"></i>&emsp;<%= form.label :province %>
+          </span>
+          <%= form.text_field :province, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-building"></i>&emsp;<%= form.label :institute %>
+          </span>
+          <%= form.text_field :institute, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-building-user"></i>&emsp;<%= form.label :office %>
+          </span>
+          <%= form.text_field :office, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <span class="float-start">
+      <%= submit_tag submit_button_text, class: submit_button %>
+      &emsp;
+      <%= link_to users_path, class: "btn btn-secondary" do %>
+        Annulla
+      <% end %>
+    </span>
+  <% end %>
+</div>
