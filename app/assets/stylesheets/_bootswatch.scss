@@ -218,3 +218,11 @@ label {
 .card {
   border-radius: 0%;
 }
+
+.btn-close {
+  background-image: none;
+
+  &:hover {
+    color: $danger;
+  }
+}

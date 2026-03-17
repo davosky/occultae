@@ -82,5 +82,24 @@
         </table>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card bg-white border p-3">
+          <h4 class="text-primary">
+            <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "36x36" %>
+            &emsp;
+            Gruppi di Appartenenza
+          </h4>
+          <hr/>
+          <div class="row">
+            <% @user.groups.order(name: :asc).each do |group| %>
+              <div class="col-4 mb-2">
+                <i class="fa-solid fa-users text-secondary fs-5 fw-bold"></i>&emsp;<span class="text-secondary fs-5 fw-bold"><%= link_to group.name, group %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

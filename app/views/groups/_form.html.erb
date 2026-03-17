@@ -1,39 +1,111 @@
-<div class="row p-3">
-  <%= form_with(model: group) do |form| %>
-    <% if group.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(group.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
-        <ul>
-          <% group.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <div class="row mb-3">
-      <div class="col-6 mb-3">
+<div data-controller="modal-select">
+  <div class="row mb-3">
+    <div class="col-8 offset-2 p-3">
+      <%= form_with(model: group) do |form| %>
+        <% if group.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(group.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
+            <ul>
+              <% group.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <div class="input-group mb-1">
           <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
-            <i class="fa-solid fa-users"></i>&emsp;<%= form.label :name %>
+            <%= form.label :name %>
           </span>
           <%= form.text_field :name, class: 'form-control' %>
         </div>
-      </div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-2">
-        <div class="d-grid">
-          <%= submit_tag submit_button_text, class: submit_button %>
+        <hr class="text-primary mt-3 mb-2"/>
+        <h4 class="<%= form_texts_class %>">Utenti</h4>
+        <div class="row mt-3">
+          <%# Bottone Utenti %>
+          <div class="input-group mb-1">
+            <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+              <%= form.label :users %>
+            </span>
+            <div class="form-control d-flex align-items-center justify-content-between">
+              <span data-modal-select-target="usersSummary" class="text-muted fst-italic">
+                <%= @group.users.any? ? @group.users.map { |u| "#{u.last_name} #{u.first_name}" }.join(", ") : "Nessun utente selezionato" %>
+              </span>
+              <button type="button" class="btn btn-sm btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#usersModal">
+                Seleziona
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-2">
-        <div class="d-grid">
-          <%= link_to groups_path, class: "btn btn-secondary" do %>
-            Annulla
-          <% end %>
+        <hr class="text-primary mt-3 mb-2"/>
+        <div class="row mt-3">
+          <div class="col">
+            <span class="float-start">
+              <%= form.submit class: submit_button %>
+              &emsp;
+              <%= link_to groups_path, class: "btn btn-secondary fs-6 fw-bold" do %>
+                Annulla
+              <% end %>
+            </span>
+          </div>
         </div>
-      </div>
+        <%# ===== MODALE UTENTI ===== %>
+        <div class="modal fade" id="usersModal" tabindex="-1"
+       data-action="shown.bs.modal->modal-select#usersModalOpened">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  <%= image_tag("users/users-logo.svg", class: "img-fluid", size: "52x52", alt: "users-logo") %>
+                  &emsp;
+                  Seleziona Utenti
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">&#10006;</button>
+              </div>
+              <div class="modal-body">
+                <input type="text"
+                 class="form-control mb-3"
+                 placeholder="Cerca utente..."
+                 data-modal-select-target="userSearch"
+                 data-action="input->modal-select#filterUsers">
+                <%= hidden_field_tag "group[user_ids][]", "" %>
+                <div class="row">
+                  <% User.order(:last_name, :first_name).each do |user| %>
+                    <div class="col-4"
+                   data-modal-select-target="userItem"
+                   data-name="<%= "#{user.last_name} #{user.first_name}".downcase %>">
+                      <div class="form-check">
+                        <%= check_box_tag(
+                    "group[user_ids][]",
+                    user.id,
+                    @group.user_ids.include?(user.id),
+                    class: "form-check-input",
+                    id: "user_#{user.id}",
+                    data: {
+                      modal_select_target: "userCheckbox",
+                      name: "#{user.last_name} #{user.first_name}",
+                      action: "change->modal-select#updateUsersCount"
+                    }
+                  ) %>
+                        <%= label_tag "user_#{user.id}", "#{user.last_name} #{user.first_name}", class: "form-check-label" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <small class="text-muted" data-modal-select-target="usersCount"></small>
+                <button type="button" class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  data-action="click->modal-select#confirmUsers">
+                  Conferma
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

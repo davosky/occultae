@@ -4,5 +4,14 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FlashController from "./flash_controller"
+application.register("flash", FlashController)
+
+import GroupSelectorController from "./group_selector_controller"
+application.register("group-selector", GroupSelectorController)
+
+import ModalSelectController from "./modal_select_controller"
+application.register("modal-select", ModalSelectController)
+
+import NestedFormController from "./nested_form_controller"
+application.register("nested-form", NestedFormController)
