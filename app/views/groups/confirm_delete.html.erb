@@ -1,0 +1,36 @@
+<div class="row mt-3">
+  <div class="col-8 offset-2 p-5 bg-light border">
+    <div class="card-header bg-white">
+      <span class="float-start fs-4 text-danger fw-bold">
+        <%= image_tag("groups/groups-logo.svg", class: "img-fluid", size: "48x48", alt: "groups-logo") %>
+        &nbsp;
+        Elimina Gruppo
+      </span>
+    </div>
+    <br/>
+    <br/>
+    <hr class="text-danger pb-2"/>
+    <strong class="text-danger">
+      Attenzione: sicuri di voler eliminare il Gruppo:
+      <br/>
+      <span class="fs-3 fw-bold">
+        <%= @group.name %>
+      </span>
+      <br/>
+      Questa azione non può essere annullata.
+    </strong>
+    <hr class="text-danger"/>
+    <div class="row">
+      <div class="col">
+        <%= link_to group_path(@group),
+                              "data-turbo-method": :delete,
+                              "data-bs-toggle": "tooltip",
+                              "title": "Elimina il Record Corrente", class: "btn btn-danger fs-5 fw-bold" do %>
+          Elimina Definitivamente
+        <% end %>
+        &emsp;
+        <%= link_to "Annulla", groups_path, class: "btn btn-light fs-5 fw-bold" %>
+      </div>
+    </div>
+  </div>
+</div>

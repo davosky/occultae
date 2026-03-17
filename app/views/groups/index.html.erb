@@ -1,0 +1,57 @@
+<div class="col-12">
+  <p>
+    <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Gruppi</span>
+    <span class="float-end">
+      <%= link_to new_group_path, class: "btn btn-success me-3" do %>
+        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-users"></i>
+        &emsp;
+        Inserisci un nuovo Gruppo
+      <% end %>
+    </span>
+  </p>
+  <hr class="m-3">
+  <div class="card bg-white border mt-3 p-3">
+    <%= search_form_with @q, id: "search-form", url: groups_path do |form| %>
+      <div class="row">
+        <div class="col-6">
+          <div class="input-group mb-2">
+            <div class="input-group-text input-group-text-fixed bg-secondary text-dark">
+              <i class="fa-solid fa-users"></i>
+              &emsp;<span>Nome Gruppo</span>
+            </div>
+            <%= form.text_field :name_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="d-grid">
+            <%= button_tag(type: "submit", class: "btn btn-secondary") do %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              &emsp;
+              <strong>
+                Cerca
+              </strong>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="card bg-white border mt-3 p-3">
+    <table id="groups" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <i class="fa-solid fa-users"></i>&nbsp;Nome
+          </th>
+          <th colspan=2></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groups.each do |group| %>
+          <%= render group %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

@@ -100,12 +100,20 @@
         </div>
       </div>
     </div>
-    <span class="float-start">
-      <%= submit_tag submit_button_text, class: submit_button %>
-      &emsp;
-      <%= link_to users_path, class: "btn btn-secondary" do %>
-        Annulla
-      <% end %>
-    </span>
+    <hr/>
+    <div class="row">
+      <div class="col-2">
+        <div class="d-grid">
+          <%= submit_tag submit_button_text, class: submit_button %>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="d-grid">
+          <%= link_to users_path, class: "btn btn-secondary" do %>
+            Annulla
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>

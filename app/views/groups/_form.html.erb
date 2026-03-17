@@ -1,0 +1,39 @@
+<div class="row p-3">
+  <%= form_with(model: group) do |form| %>
+    <% if group.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(group.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
+        <ul>
+          <% group.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-6 mb-3">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-users"></i>&emsp;<%= form.label :name %>
+          </span>
+          <%= form.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-2">
+        <div class="d-grid">
+          <%= submit_tag submit_button_text, class: submit_button %>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="d-grid">
+          <%= link_to groups_path, class: "btn btn-secondary" do %>
+            Annulla
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

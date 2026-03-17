@@ -1,0 +1,24 @@
+<tr id="<%= dom_id group %>">
+  <td>
+    <%= link_to group do %>
+      <i class="fa-solid fa-users"></i>
+      &nbsp;<%= group.name %>
+    <% end %>
+  </td>
+  <td><%= group.name %></td>
+  <td>
+    <%= link_to edit_group_path(group), 
+            "data-bs-toggle": "tooltip", 
+            "title": "Modifica il Record Corrente", class: "text-warning" do %>
+      <i class="fa-solid fa-pen"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to confirm_delete_group_path(group), 
+    "data-bs-toggle": "tooltip", 
+    "title": "Elimina il Record Corrente",
+    class: "text-danger" do %>
+      <i class="fa-solid fa-trash-can"></i>
+    <% end %>
+  </td>
+</tr>

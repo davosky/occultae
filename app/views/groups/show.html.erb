@@ -1,0 +1,28 @@
+<div class="col-12">
+  <p class="ps-3">
+    <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">
+      <%= "#{@group&.name}".html_safe %>
+    </span>
+    <span class="float-end">
+      <%= link_to groups_path, class: "btn btn-light me-3" do %>
+        Chiudi
+      <% end %>
+    </span>
+  </p>
+  <hr class="m-3">
+  <div class="card bg-white border p-3">
+    <div class="row">
+      <div class="col-6">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="text-primary"><i class="fa-solid fa-users"></i>&emsp;Nome:</td>
+              <td class="text-dark"><%= @group.name %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

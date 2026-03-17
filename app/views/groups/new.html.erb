@@ -1,0 +1,11 @@
+<div class="col-12 bg-light border p-3">
+  <p>
+    <%= image_tag "groups/groups-logo.svg", class: "ms-3 groups-logo", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Nouvo Gruppo</span>
+    <span class="float-end">
+      <%= link_to "Chiudi", groups_path, class: "btn btn-light" %>
+    </span>
+  </p>
+  <hr class="m-3"/>
+  <%= render "form", group: @group %>
+</div>

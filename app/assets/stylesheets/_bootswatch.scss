@@ -205,6 +205,16 @@ label {
   content: url("users/users-hover-icon.svg");
 }
 
+.groups-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+}
+
+.nav-groups:hover .groups-icon {
+  content: url("groups/groups-hover-icon.svg");
+}
+
 .card {
   border-radius: 0%;
 }

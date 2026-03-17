@@ -10,6 +10,7 @@ it:
     models:
       supervisor: Supervisori
       user: Utenti
+      group: Gruppi
     attributes:
       supervisor:
         username: Nome Utente
@@ -58,6 +59,11 @@ it:
         created_at: Creato Il
         updated_at: Aggiornato il
         groups: Gruppi
+      group:
+        name: Nome Gruppo
+        created_at: Creato Il
+        updated_at: Aggiornato il
+        users: Utenti
     errors:
       messages:
         record_invalid: "Validazione fallita: %{errors}"
