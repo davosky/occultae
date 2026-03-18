@@ -4,11 +4,12 @@
 
 ### Small web-app to monitoring users in SinCGIL
 
-* Ruby version >= 8
+* RubyOnRails version >= 8
++ Ruby version >= 4
 * PostgreSQL >= 16
 * Node.js >= 24
 * Yarn >= 1.22
-* ESbuild
+* ESbuild >= 0.27
 * Bootstrap >= 5
 * FontAwesome free
 
