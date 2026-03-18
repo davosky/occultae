@@ -3,7 +3,6 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    # @groups = Group.includes(:users, :nodes).all.order(name: :asc)
     @q = Group.ransack(params[:q])
     @groups = @q.result(distinct: true).order(name: :asc)
   end

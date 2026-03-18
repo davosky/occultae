@@ -82,6 +82,9 @@ GEM
       actionview (>= 6.0, < 9.0)
       activerecord (>= 6.0, < 9.0)
       kaminari (~> 1.2.2)
+    ancestry (5.1.0)
+      activerecord (>= 5.2.6)
+      logger
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.21)
@@ -412,6 +415,7 @@ PLATFORMS
 
 DEPENDENCIES
   administrate (~> 1.0)
+  ancestry (~> 5.1)
   bcrypt (~> 3.1.7)
   bootsnap
   brakeman
@@ -457,6 +461,7 @@ CHECKSUMS
   activesupport (8.1.2) sha256=88842578ccd0d40f658289b0e8c842acfe9af751afee2e0744a7873f50b6fdae
   addressable (2.8.9) sha256=cc154fcbe689711808a43601dee7b980238ce54368d23e127421753e46895485
   administrate (1.0.0) sha256=65b0008214d352cab51e8230086ddcd3af11ac5ee91233db89dbea24bd432471
+  ancestry (5.1.0) sha256=8a073cf6f7e306eeed36af72595abd19602ef4a197bf4beda2f31cf8f55de27b
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bcrypt (3.1.21) sha256=5964613d750a42c7ee5dc61f7b9336fb6caca429ba4ac9f2011609946e4a2dcf

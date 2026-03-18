@@ -8,9 +8,10 @@ it:
         next: Prossima
         previous: Precedente
     models:
-      supervisor: Supervisori
+      supervisor: Supervisore
       user: Utenti
-      group: Gruppi
+      group: Gruppo
+      node: Nodo
     attributes:
       supervisor:
         username: Nome Utente
@@ -64,6 +65,16 @@ it:
         created_at: Creato Il
         updated_at: Aggiornato il
         users: Utenti
+      node:
+        name: Nome Nodo
+        ancestry: Livello
+        ancestry_depth: Profondità Livello
+        parent: Nodo Padre
+        parent_id: Nodo Padre
+        ancestors: Ascendenze
+        descendants: Discendenze
+        created_at: Creato Il
+        updated_at: Aggiornato il
     errors:
       messages:
         record_invalid: "Validazione fallita: %{errors}"

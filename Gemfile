@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "ancestry", "~> 5.1"
 gem "administrate", "~> 1.0"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false

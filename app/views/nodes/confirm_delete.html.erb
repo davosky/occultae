@@ -1,0 +1,45 @@
+<div class="row mt-3">
+  <div class="col-8 offset-2 p-5 bg-light border">
+    <div class="card-header bg-white">
+      <span class="float-start fs-4 text-danger fw-bold">
+        <%= image_tag("nodes/nodes-logo.svg", class: "img-fluid", size: "48x48", alt: "nodes-logo") %>
+        &nbsp;
+        Elimina Nodo
+      </span>
+    </div>
+    <br/>
+    <br/>
+    <hr class="text-danger pb-2"/>
+    <strong class="text-danger">
+      Attenzione: sicuri di voler eliminare il Nodo:
+      <br/>
+      <i class="fs-5 fw-bold">
+        <%= @node.name %>
+      </i>
+      <br/>
+      nel caso il nodo abbia delle discendenze verranno eliminate anche queste!
+      <br/>
+      <br/>
+      Questa azione non può essere annullata.
+    </strong>
+    <hr class="text-danger"/>
+    <div class="row">
+      <div class="col">
+        <%= link_to node_path(@node),
+                              "data-turbo-method": :delete,
+                              "data-bs-toggle": "tooltip",
+                              "title": "Elimina il Record Corrente", class: "btn btn-danger fs-5 fw-bold" do %>
+          <i class="fa-solid fa-trash-can"></i>
+          &emsp;
+          Elimina Definitivamente
+        <% end %>
+        &emsp;
+        <%= link_to nodes_path, class: "btn btn-light fs-5 fw-bold" do %>
+          <i class="fa-regular fa-circle-xmark"></i>
+          &emsp;
+          Annulla
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

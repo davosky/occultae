@@ -1,0 +1,20 @@
+<li>
+  <% open_branch = @branch_ids.include?(node.id) %>
+  <%= link_to node_path(node), class: "tree-view-link" do %>
+    <% if open_branch %>
+      <i class="fa-solid fa-folder-open text-warning"></i>
+    <% else %>
+      <i class="fa-solid fa-folder text-secondary"></i>
+    <% end %>
+    <span class="<%= 'fw-bold text-warning' if node == @node %>">
+      <%= node.name %>
+    </span>
+  <% end %>
+  <% if children.present? %>
+    <ul>
+      <% children.each do |node, children| %>
+        <%= render "tree_node", node: node, children: children %>
+      <% end %>
+    </ul>
+  <% end %>
+</li>

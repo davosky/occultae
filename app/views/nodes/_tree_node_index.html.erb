@@ -1,0 +1,18 @@
+<li class="tree-item">
+  <span class="tree-label">
+    <% open_branch = @branch_ids.include?(node.id) %>
+    <% if open_branch %>
+      <i class="fa-solid fa-folder-open folder-open fs-3"></i>
+    <% else %>
+      <i class="fa-solid fa-folder folder-closed fs-3"></i>
+    <% end %>
+    <%= link_to node.name, node_path(node), class: "node-link #{'node-link--active' if open_branch}" %>
+  </span>
+  <% if children.any? %>
+    <ul class="tree-children">
+      <% children.each do |child_node, grandchildren| %>
+        <%= render "tree_node_index", node: child_node, children: grandchildren %>
+      <% end %>
+    </ul>
+  <% end %>
+</li>

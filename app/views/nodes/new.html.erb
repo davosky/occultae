@@ -1,0 +1,15 @@
+<div class="col-12 bg-light border p-3">
+  <p>
+    <%= image_tag "nodes/nodes-logo.svg", class: "ms-3 nodes-logo", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Nouvo Gruppo</span>
+    <span class="float-end">
+      <%= link_to nodes_path, class: "btn btn-light" do %>
+        <i class="fa-regular fa-circle-xmark"></i>
+        &emsp;
+        Chiudi
+      <% end %>
+    </span>
+  </p>
+  <hr/>
+  <%= render "form", node: @node %>
+</div>

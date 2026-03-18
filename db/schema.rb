@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_094431) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_18_112936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_094431) do
     t.bigint "user_id", null: false
     t.index ["group_id"], name: "index_groups_users_on_group_id"
     t.index ["user_id"], name: "index_groups_users_on_user_id"
+  end
+
+  create_table "nodes", force: :cascade do |t|
+    t.string "ancestry"
+    t.integer "ancestry_depth"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 
   create_table "supervisors", force: :cascade do |t|

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :nodes do
+    member do
+      get :confirm_delete
+    end
+  end
   resources :groups do
     member do
       get :confirm_delete
