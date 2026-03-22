@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "ancestry", "~> 5.1"
 gem "administrate", "~> 1.0"
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.22"
 gem "bootsnap", require: false
 gem "cancancan", "~> 3.6"
 gem "cssbundling-rails"
