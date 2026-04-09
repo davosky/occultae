@@ -2,7 +2,7 @@
   <p class="ps-3">
     <%= user_avatar(@user)%>
     &emsp; <span class="fs-3 fw-bold text-primary">
-      <%= "#{@user&.first_name} #{@user&.last_name}".html_safe %>
+      <%= "#{@user&.first_name} #{@user&.last_name}" %>
     </span>
     <span class="float-end">
       <%= link_to users_path, class: "btn btn-light me-3" do %>

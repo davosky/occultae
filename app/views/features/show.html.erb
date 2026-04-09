@@ -2,7 +2,7 @@
   <p class="ps-3">
     <%= image_tag "features/features-logo.svg", class: "ms-3", size: "48x48" %>
     &emsp; <span class="fs-3 fw-bold text-primary">
-      <%= "#{@feature&.name}".html_safe %>
+      <%= @feature&.name %>
     </span>
     <span class="float-end">
       <%= link_to features_path, class: "btn btn-light" do %>
@@ -100,7 +100,7 @@
                   <ul>
                     <% voice.users.each do |user| %>
                       <li>
-                        <%= "#{user.first_name} #{user.last_name}".html_safe %>
+                        <%= "#{user.first_name} #{user.last_name}" %>
                       </li>
                     <% end %>
                   </ul>

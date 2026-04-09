@@ -2,7 +2,7 @@
   <p class="ps-3">
     <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "48x48" %>
     &emsp; <span class="fs-3 fw-bold text-primary">
-      <%= "#{@group&.name}".html_safe %>
+      <%= @group&.name %>
     </span>
     <span class="float-end">
       <%= link_to groups_path, class: "btn btn-light" do %>
@@ -47,7 +47,7 @@
                     <i class="fa-solid fa-circle-user"></i>&emsp;<%= user.username %>
                   <% end %>
                 </td>
-                <td><%= "#{user.first_name} #{user.last_name}".html_safe %></td>
+                <td><%= "#{user.first_name} #{user.last_name}" %></td>
                 <td><%= user.category %></td>
                 <td><%= user.region %></td>
                 <td><%= user.province %></td>
