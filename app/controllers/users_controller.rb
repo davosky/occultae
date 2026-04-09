@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @groups = @user.groups.order(name: :asc)
+    @nodes = @user.nodes.order(name: :ASC)
   end
 
   def new
@@ -63,6 +65,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :username, :email, :password, :first_name, :last_name, :gender, :birth_date, :birth_place, :fiscal_code, :category, :region, :province, :institute, :office, group_ids: [] ])
+      params.expect(user: [ :username, :email, :password, :first_name, :last_name, :gender, :birth_date, :birth_place, :fiscal_code, :category, :region, :province, :institute, :office, group_ids: [], node_ids: [] ])
     end
 end

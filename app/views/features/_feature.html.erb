@@ -1,0 +1,29 @@
+<tr id="<%= dom_id feature %>">
+  <td>
+    <%= link_to feature do %>
+      <i class="fa-solid fa-list"></i>
+      &nbsp;<%= feature.name %>
+    <% end %>
+  </td>
+  <td>
+    <%= feature.grouping %>
+  </td>
+  <td>
+    <%= feature&.node.name %>
+  </td>
+  <td>
+    <%= link_to edit_feature_path(feature), 
+            "data-bs-toggle": "tooltip", 
+            "title": "Modifica il Record Corrente", class: "text-warning" do %>
+      <i class="fa-solid fa-pen"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to confirm_delete_feature_path(feature), 
+    "data-bs-toggle": "tooltip", 
+    "title": "Elimina il Record Corrente",
+    class: "text-danger" do %>
+      <i class="fa-solid fa-trash-can"></i>
+    <% end %>
+  </td>
+</tr>

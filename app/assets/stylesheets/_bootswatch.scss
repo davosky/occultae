@@ -302,6 +302,16 @@ ul.tree-children {
   content: url("nodes/nodes-hover-icon.svg");
 }
 
+.features-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+}
+
+.nav-features:hover .features-icon {
+  content: url("features/features-hover-icon.svg");
+}
+
 .card {
   border-radius: 0%;
 }

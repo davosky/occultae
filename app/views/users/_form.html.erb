@@ -2,7 +2,7 @@
   <!-- Modal -->
   <div class="modal fade" id="groupsModal" tabindex="-1"
        data-action="shown.bs.modal->modal-select#groupsModalOpened">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
@@ -40,10 +40,10 @@
         </div>
         <div class="modal-footer justify-content-between">
           <small class="text-muted" data-modal-select-target="groupsCount"></small>
-          <button type="button" class="btn btn-primary"
+          <button type="button" class="btn btn-info"
         data-bs-dismiss="modal"
         data-action="click->modal-select#confirmGroups">
-            <i class="fa-solid fa-circle-check"></i>&emsp;Conferma
+            <i class="fa-solid fa-check"></i>&emsp;Conferma
           </button>
         </div>
       </div>
@@ -162,10 +162,10 @@
           <span data-modal-select-target="groupsSummary" class="text-muted fst-italic">
             <%= user.groups.any? ? user.groups.map(&:name).join(", ") : "Nessun gruppo selezionato" %>
           </span>
-          <button type="button" class="btn btn-sm btn-outline-primary"
+          <button type="button" class="btn btn-sm btn-info"
                   data-bs-toggle="modal"
                   data-bs-target="#groupsModal">
-            <i class="fa-solid fa-square-check"></i>&emsp;Seleziona
+            <i class="fa-regular fa-square-check"></i>&emsp;Seleziona
           </button>
         </div>
       </div>
@@ -187,7 +187,7 @@
       <div class="col-2">
         <div class="d-grid">
           <%= link_to users_path, class: "btn btn-secondary" do %>
-            Annulla
+            <i class="fa-solid fa-rotate-left"></i>&emsp;Annulla
           <% end %>
         </div>
       </div>

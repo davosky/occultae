@@ -10,14 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_18_112936) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_171904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "features", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "grouping"
+    t.string "name"
+    t.bigint "node_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["node_id"], name: "index_features_on_node_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "groups_nodes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "group_id", null: false
+    t.bigint "node_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_groups_nodes_on_group_id"
+    t.index ["node_id"], name: "index_groups_nodes_on_node_id"
   end
 
   create_table "groups_users", force: :cascade do |t|
@@ -29,12 +47,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112936) do
     t.index ["user_id"], name: "index_groups_users_on_user_id"
   end
 
+  create_table "groups_voices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "group_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "voice_id", null: false
+    t.index ["group_id"], name: "index_groups_voices_on_group_id"
+    t.index ["voice_id"], name: "index_groups_voices_on_voice_id"
+  end
+
   create_table "nodes", force: :cascade do |t|
     t.string "ancestry"
     t.integer "ancestry_depth"
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "nodes_users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "node_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["node_id"], name: "index_nodes_users_on_node_id"
+    t.index ["user_id"], name: "index_nodes_users_on_user_id"
   end
 
   create_table "supervisors", force: :cascade do |t|
@@ -88,6 +124,42 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112936) do
     t.string "username"
   end
 
+  create_table "users_voices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "voice_id", null: false
+    t.index ["user_id"], name: "index_users_voices_on_user_id"
+    t.index ["voice_id"], name: "index_users_voices_on_voice_id"
+  end
+
+  create_table "voices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "feature_id", null: false
+    t.bigint "group_id"
+    t.string "grouping"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.integer "value_option", default: 0, null: false
+    t.integer "value_type", default: 0, null: false
+    t.index ["feature_id"], name: "index_voices_on_feature_id"
+    t.index ["group_id"], name: "index_voices_on_group_id"
+    t.index ["user_id"], name: "index_voices_on_user_id"
+  end
+
+  add_foreign_key "features", "nodes"
+  add_foreign_key "groups_nodes", "groups"
+  add_foreign_key "groups_nodes", "nodes"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
+  add_foreign_key "groups_voices", "groups"
+  add_foreign_key "groups_voices", "voices"
+  add_foreign_key "nodes_users", "nodes"
+  add_foreign_key "nodes_users", "users"
+  add_foreign_key "users_voices", "users"
+  add_foreign_key "users_voices", "voices"
+  add_foreign_key "voices", "features"
+  add_foreign_key "voices", "groups"
+  add_foreign_key "voices", "users"
 end

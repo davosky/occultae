@@ -1,28 +1,173 @@
-<%= form_with(model: node) do |form| %>
-  <% if node.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(node.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
-      <ul>
-        <% node.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div data-controller="modal-select">
+  <%= form_with(model: node) do |form| %>
+    <% if node.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(node.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
+        <ul>
+          <% node.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="input-group mb-1">
+      <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+        <i class="fa-solid fa-folder"></i>&emsp;<%= form.label :name %>
+      </span>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="input-group mb-1">
+      <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+        <i class="fa-solid fa-folder-tree"></i>&emsp;<%= form.label :parent_id %>
+      </span>
+      <%= form.collection_select(:parent_id, Node.all.order(:ancestry_depth, :name), :id, :name, {:include_blank => true}, {:class => "form-select"}) %>
+    </div>
+    <hr/>
+    <!-- GROUPS BUTTON -->
+    <div class="input-group mb-1">
+      <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+        <%= form.label :groups %>
+      </span>
+      <div class="form-control d-flex align-items-center justify-content-between">
+        <span data-modal-select-target="groupsSummary" class="text-muted fst-italic">
+          <%= @node.groups.any? ? @node.groups.map(&:name).join(", ") : "Nessun gruppo selezionato" %>
+        </span>
+        <button type="button" class="btn btn-sm btn-info"
+                  data-bs-toggle="modal"
+                  data-bs-target="#groupsModal">
+          <i class="fa-regular fa-square-check"></i>&emsp;Seleziona
+        </button>
+      </div>
+    </div>
+    <hr/>
+    <!-- USERS BUTTON -->
+    <div class="input-group mb-1">
+      <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+        <%= form.label :users %>
+      </span>
+      <div class="form-control d-flex align-items-center justify-content-between">
+        <span data-modal-select-target="usersSummary" class="text-muted fst-italic">
+          <%= @node.users.any? ? @node.users.map(&:last_name).join(", ") : "Nessun gruppo selezionato" %>
+        </span>
+        <button type="button" class="btn btn-sm btn-info"
+                  data-bs-toggle="modal"
+                  data-bs-target="#usersModal">
+          <i class="fa-regular fa-square-check"></i>&emsp;Seleziona
+        </button>
+      </div>
+    </div>
+    <hr/>
+    <div>
+      <%= form.submit class: submit_button %>
+    </div>
+    <!-- ===== GROUPS MODAL ===== -->
+    <div class="modal fade" id="groupsModal" tabindex="-1"
+       data-action="shown.bs.modal->modal-select#groupsModalOpened">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary fs-5 fw-bold">
+              <%= image_tag("groups/groups-logo.svg", class: "img-fluid", size: "52x52", alt: "groups-logo") %>
+              &emsp;
+              Seleziona Gruppi
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal">&#10006;</button>
+          </div>
+          <div class="modal-body">
+            <input type="text"
+                 class="form-control mb-3"
+                 placeholder="Cerca gruppo..."
+                 data-modal-select-target="groupSearch"
+                 data-action="input->modal-select#filterGroups">
+            <div class="row">
+              <% Group.order(:name).each do |group| %>
+                <div class="col-4"
+                   data-modal-select-target="groupItem"
+                   data-name="<%= group.name.downcase %>">
+                  <div class="form-check">
+                    <%= check_box_tag(
+                    "node[group_ids][]",
+                    group.id,
+                    @node.group_ids.include?(group.id),
+                    class: "form-check-input",
+                    id: "group_#{group.id}",
+                    data: {
+                      modal_select_target: "groupCheckbox",
+                      name: group.name,
+                      action: "change->modal-select#updateGroupsCount"
+                    }
+                  ) %>
+                    <%= label_tag "group_#{group.id}", group.name, class: "form-check-label" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <small class="text-muted" data-modal-select-target="groupsCount"></small>
+            <button type="button" class="btn btn-info"
+        data-bs-dismiss="modal"
+        data-action="click->modal-select#confirmGroups">
+              <i class="fa-solid fa-check"></i>&emsp;Conferma
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ===== USERS MODAL ===== -->
+    <div class="modal fade" id="usersModal" tabindex="-1"
+       data-action="shown.bs.modal->modal-select#usersModalOpened">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <%= image_tag("users/users-logo.svg", class: "img-fluid", size: "52x52", alt: "users-logo") %>
+              &emsp;
+              Seleziona Utenti
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal">&#10006;</button>
+          </div>
+          <div class="modal-body">
+            <input type="text"
+                 class="form-control mb-3"
+                 placeholder="Cerca utente..."
+                 data-modal-select-target="userSearch"
+                 data-action="input->modal-select#filterUsers">
+            <%= hidden_field_tag "node[user_ids][]", "" %>
+            <div class="row">
+              <% User.order(:last_name, :first_name).each do |user| %>
+                <div class="col-4"
+                   data-modal-select-target="userItem"
+                   data-name="<%= "#{user.last_name} #{user.first_name}".downcase %>">
+                  <div class="form-check">
+                    <%= check_box_tag(
+                    "node[user_ids][]",
+                    user.id,
+                    @node.user_ids.include?(user.id),
+                    class: "form-check-input",
+                    id: "user_#{user.id}",
+                    data: {
+                      modal_select_target: "userCheckbox",
+                      name: "#{user.last_name} #{user.first_name}",
+                      action: "change->modal-select#updateUsersCount"
+                    }
+                  ) %>
+                    <%= label_tag "user_#{user.id}", "#{user.last_name} #{user.first_name}", class: "form-check-label" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <small class="text-muted" data-modal-select-target="usersCount"></small>
+            <button type="button" class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  data-action="click->modal-select#confirmUsers">
+              Conferma
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
-  <div class="input-group mb-1">
-    <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
-      <i class="fa-solid fa-folder"></i>&emsp;<%= form.label :name %>
-    </span>
-    <%= form.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="input-group mb-1">
-    <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
-      <i class="fa-solid fa-folder-tree"></i>&emsp;<%= form.label :parent_id %>
-    </span>
-    <%= form.collection_select(:parent_id, Node.all.order(:ancestry_depth, :name), :id, :name, {:include_blank => true}, {:class => "form-select"}) %>
-  </div>
-  <hr/>
-  <div>
-    <%= form.submit class: submit_button %>
-  </div>
-<% end %>
+</div>

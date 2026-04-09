@@ -12,6 +12,7 @@ it:
       user: Utenti
       group: Gruppo
       node: Nodo
+      feature: Attributo
     attributes:
       supervisor:
         username: Nome Utente
@@ -73,6 +74,15 @@ it:
         parent_id: Nodo Padre
         ancestors: Ascendenze
         descendants: Discendenze
+        created_at: Creato Il
+        updated_at: Aggiornato il
+        groups: Gruppi
+        users: Utenti
+      feature:
+        name: Nome Attributo
+        grouping: Raggruppamento
+        node: Nodo Appartenenza
+        node_id: Nodo Appartenenza
         created_at: Creato Il
         updated_at: Aggiornato il
     errors:

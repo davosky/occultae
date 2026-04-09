@@ -1,0 +1,116 @@
+<div class="col-12">
+  <p class="ps-3">
+    <%= image_tag "features/features-logo.svg", class: "ms-3", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">
+      <%= "#{@feature&.name}".html_safe %>
+    </span>
+    <span class="float-end">
+      <%= link_to features_path, class: "btn btn-light" do %>
+        <i class="fa-regular fa-circle-xmark"></i>&emsp;Chiudi
+      <% end %>
+    </span>
+  </p>
+  <div class="card bg-white border p-3">
+    <div class="row">
+      <div class="col-6">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="text-primary"><i class="fa-solid fa-list"></i>&emsp;Nome Attributo:</td>
+              <td class="text-dark"><%= @feature.name %></td>
+            </tr>
+            <tr>
+              <td class="text-primary"><i class="fa-solid fa-cubes"></i>&emsp;Raggruppamento:</td>
+              <td class="text-dark"><%= @feature.grouping %></td>
+            </tr>
+            <tr>
+              <td class="text-primary"><i class="fa-solid fa-folder-tree"></i>&emsp;Nodo Assegnato:</td>
+              <td class="text-dark">
+                <%= link_to node_path(@feature.node) do %>
+                  <%= @feature.node.name %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+      </table>
+    </div>
+  </div>
+  <!-- VOICES -->
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
+      <%= image_tag "voices/voices-logo.svg", class: "ms-3", size: "48x48" %>
+      &emsp;
+      <span class="text-primary fs-5 fst-italic fw-bold">
+        Voci Attributo
+      </span>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-secondary">
+              <i class="fa-solid fa-cubes"></i>&emsp;Raggruppamento
+            </th>
+            <th class="text-secondary">
+              <i class="fa-regular fa-rectangle-list"></i>&emsp;Voce
+            </th>
+            <th class="text-secondary">
+              <i class="fa-solid fa-stop"></i>&emsp;Tipo Valore
+            </th>
+            <th class="text-secondary">
+              <i class="fa-regular fa-square"></i>&emsp;Valore
+            </th>
+            <th class="text-secondary">
+              <i class="fa-solid fa-users"></i>&emsp;Gruppi
+            </th>
+            <th class="text-secondary">
+              <i class="fa-solid fa-user"></i>&emsp;Utenti
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @feature.voices.order(grouping: :asc).each do |voice| %>
+            <tr>
+              <td class="text-secondary">
+                <%= voice.grouping %>
+              </td>
+              <td class="text-info fw-bold">
+                <%= voice.name %>
+              </td>
+              <td class="text-secondary">
+                <%= voice.value_type %>
+              </td>
+              <td class="text-secondary">
+                <%= value_type_image(voice) %>
+              </td>
+              <td class="text-secondary">
+                <% if voice.gruppo? %>
+                  <ul>
+                    <% voice.groups.each do |group| %>
+                      <li>
+                        <%= group.name %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </td>
+              <td class="text-secondary">
+                <% if voice.gruppo? %>
+                  <ul>
+                    <% voice.users.each do |user| %>
+                      <li>
+                        <%= "#{user.first_name} #{user.last_name}".html_safe %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>

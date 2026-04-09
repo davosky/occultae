@@ -1,0 +1,13 @@
+<div class="col-12 bg-light border p-3">
+  <p>
+    <%= image_tag "features/features-logo.svg", class: "ms-3 features-logo", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Aggiorna Attributo</span>
+    <span class="float-end">
+      <%= link_to features_path, class: "btn btn-light" do %>
+        <i class="fa-regular fa-circle-xmark"></i>&emsp;Chiudi
+      <% end %>
+    </span>
+  </p>
+  <hr class="m-3"/>
+  <%= render "form", feature: @feature %>
+</div>

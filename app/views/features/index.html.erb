@@ -1,0 +1,36 @@
+<div class="col-12">
+  <p>
+    <%= image_tag "features/features-logo.svg", class: "ms-3", size: "48x48" %>
+    &emsp; <span class="fs-3 fw-bold text-primary">Attributi</span>
+    <span class="float-end">
+      <%= link_to new_feature_path, class: "btn btn-success me-3" do %>
+        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-list"></i>
+        &emsp;
+        Inserisci un nuovo Attributo
+      <% end %>
+    </span>
+  </p>
+  <div class="card bg-white border mt-3 p-3">
+    <table id="features" class="table table-hover">
+      <thead>
+        <tr>
+          <th class="text-secondary">
+            <i class="fa-solid fa-list"></i>&nbsp;Nome Attributo
+          </th>
+          <th class="text-secondary">
+            <i class="fa-solid fa-cubes"></i>&nbsp;Raggruppamento
+          </th>
+          <th class="text-secondary">
+            <i class="fa-solid fa-folder-tree"></i>&nbsp;Nodo Assegnato
+          </th>
+          <th colspan=2 class="text-secondary"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @features.each do |feature| %>
+          <%= render feature %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

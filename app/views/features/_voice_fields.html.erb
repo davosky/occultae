@@ -1,0 +1,54 @@
+<tr class="nested-fields">
+  <td><%= f.hidden_field :_destroy %>
+    <%= f.text_field :grouping, class: "form-control form-control-sm" %>
+  </td>
+  <td>
+    <%= f.text_field :name, class: "form-control form-control-sm" %>
+  </td>
+  <td>
+    <%= f.select :value_type,
+        [["Bottone", "bottone"], ["Gruppo", "gruppo"]],
+        { include_blank: "— tipo valore —" },
+        { class: "form-control form-control-sm" } %>
+  </td>
+  <td>
+    <%= f.select :value_option,
+        [["SI", "si"], ["NO", "no"], ["Gruppo", "gr"]],
+        { include_blank: "— valore —" },
+        { class: "form-control form-control-sm" } %>
+  </td>
+  <%# Gruppi %>
+  <td>
+    <%= f.hidden_field :group_ids,
+      value: f.object.group_ids.join(","),
+      data: { group_selector_target: "input" } %>
+    <span data-group-selector-target="summary" class="d-none"></span>
+    <span data-group-selector-target="count" class="d-none"></span>
+    <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            data-action="group-selector#open">
+      <i class="fa-solid fa-user-group"></i>&nbsp;Gruppi
+    </button>
+  </td>
+  <%# Utenti %>
+  <td>
+    <%= f.hidden_field :user_ids,
+      value: f.object.user_ids.join(","),
+      data: { group_selector_target: "userInput" } %>
+    <span data-group-selector-target="userSummary" class="d-none"></span>
+    <span data-group-selector-target="userCount" class="d-none"></span>
+    <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            data-action="group-selector#openUsers">
+      <i class="fa-solid fa-user"></i>&nbsp;Utenti
+    </button>
+  </td>
+  <%# Rimuovi %>
+  <td>
+    <div class="form-check text-danger">
+      Rimuovi&nbsp;
+      <i class="fa-solid fa-trash-can"></i>
+      <%= f.check_box :_destroy, class: "form-check-input border border-danger", type: "checkbox" %>
+    </div>
+  </td>
+</tr>

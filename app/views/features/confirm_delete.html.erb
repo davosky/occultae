@@ -1,0 +1,40 @@
+<div class="row mt-3">
+  <div class="col-8 offset-2 p-5 bg-light border">
+    <div class="card-header bg-white">
+      <span class="float-start fs-4 text-danger fw-bold">
+        <%= image_tag("features/features-logo.svg", class: "img-fluid", size: "48x48", alt: "features-logo") %>
+        &nbsp;
+        Elimina Attributo
+      </span>
+    </div>
+    <br/>
+    <br/>
+    <hr class="text-danger pb-2"/>
+    <strong class="text-danger">
+      Attenzione: sicuri di voler eliminare l'Attributo:
+      <br/>
+      <span class="fs-3 fw-bold">
+        <%= @feature.name %>
+      </span>
+      &nbsp;assegnato al nodo&nbsp;
+      <span class="fs-3 fw-bold">
+        <%= @feature&.node.name %>
+      </span>
+      <br/>
+      Questa azione non può essere annullata.
+    </strong>
+    <hr class="text-danger"/>
+    <div class="row">
+      <div class="col">
+        <%= link_to feature_path(@feature),
+                    "data-turbo-method": :delete,
+                    "data-bs-toggle": "tooltip",
+                    "title": "Elimina il Record Corrente", class: "btn btn-danger fs-5 fw-bold" do %>
+          Elimina Definitivamente
+        <% end %>
+        &emsp;
+        <%= link_to "Annulla", features_path, class: "btn btn-light fs-5 fw-bold" %>
+      </div>
+    </div>
+  </div>
+</div>

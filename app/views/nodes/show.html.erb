@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="col-12 mb-5">
   <p class="ps-3">
     <%= image_tag "nodes/nodes-logo.svg", class: "ms-3", size: "48x48" %>
     &emsp; <span class="fs-3 fw-bold text-primary">
@@ -28,17 +28,150 @@
   </p>
   <div class="card bg-white border pt-3 pb-3 ps-4 pe-4">
     <div class="row">
-      <div class="col-6">
-        <span class="fs-4 fw-bold">
-          <i class="fa-solid fa-folder-tree fs-4 fw-bold"></i>&nbsp;Struttura:
-        </span>
+      <div class="col-5 p-2" style="border-right: solid 1px #ccc">
         <ul class="tree">
           <% @tree.each do |node, children| %>
             <%= render partial: "tree_node", locals: { node: node, children: children } %>
           <% end %>
         </ul>
       </div>
-      <div class="col-6">
+      <div class="col-7">
+        <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "32x32" %>
+        &emsp; <span class="text-secondary fs-5 fw-bold fst-italic">Gruppi assegnati al Nodo</span>
+        <hr />
+        <table class="table table-hover">
+          <tbody>
+            <% @node.groups.each do |group| %>
+              <tr>
+                <td>
+                  <%= link_to group do %>
+                    <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "21x21" %>&emsp;
+                    <%= group.name %>
+                  <% end %>
+                  <hr/>
+                  <div class="row">
+                    <div class="col-10 offset-1">
+                      <ul class="list-group list-group-horizontal">
+                        <% group.users.each do |user| %>
+                          <li class="list-group-item text-secondary border-0">
+                            <%=link_to user, class: "text-secondary fst-italic" do %>
+                              <%= "<i class='fa-solid fa-user'></i> #{user.first_name} #{user.last_name}".html_safe %>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br class="mb-3"/>
+        <%= image_tag "users/users-logo.svg", class: "ms-3", size: "32x32" %>
+        &emsp; <span class="text-secondary fs-5 fw-bold fst-italic">Utenti assegnati al Nodo</span>
+        <hr />
+        <table class="table table-hover">
+          <tbody>
+            <% @node.users.each do |user| %>
+              <tr>
+                <td>
+                  <%= link_to user do %>
+                    <%= image_tag "users/users-logo.svg", class: "ms-3", size: "21x21" %>&emsp;<%= "#{user.last_name} #{user.first_name}".html_safe %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr class="mt-3 mb-3"/>
+    <div class="row">
+      <div class="col-12">
+        <%= image_tag "features/features-logo.svg", class: "ms-3", size: "32x32" %>
+        &emsp; <span class="text-secondary fs-5 fw-bold fst-italic">Attributi del Nodo</span>
+        <br class="mb-3"/>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-secondary"><i class="fa-solid fa-cubes"></i>&nbsp;Raggruppamento</th>
+              <th class="text-secondary"><i class="fa-solid fa-list"></i>&nbsp;Nome Attributo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @node.features.each do |feature| %>
+              <tr>
+                <td class="text-primary"><%= feature.grouping %></td>
+                <td class="text-primary"><%= feature.name %></td>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-secondary">
+                        <i class="fa-solid fa-cubes"></i>&emsp;Raggruppamento
+                      </th>
+                      <th class="text-secondary">
+                        <i class="fa-regular fa-rectangle-list"></i>&emsp;Voce
+                      </th>
+                      <th class="text-secondary">
+                        <i class="fa-solid fa-stop"></i>&emsp;Tipo Valore
+                      </th>
+                      <th class="text-secondary">
+                        <i class="fa-regular fa-square"></i>&emsp;Valore
+                      </th>
+                      <th class="text-secondary">
+                        <i class="fa-solid fa-users"></i>&emsp;Gruppi
+                      </th>
+                      <th class="text-secondary">
+                        <i class="fa-solid fa-user"></i>&emsp;Utenti
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% feature.voices.each do |voice| %>
+                      <tr>
+                        <td class="text-secondary">
+                          <%= voice.grouping %>
+                        </td>
+                        <td class="text-info fw-bold">
+                          <%= voice.name %>
+                        </td>
+                        <td class="text-secondary">
+                          <%= voice.value_type %>
+                        </td>
+                        <td class="text-secondary">
+                          <%= value_type_image(voice) %>
+                        </td>
+                        <td class="text-secondary">
+                          <% if voice.gruppo? %>
+                            <ul>
+                              <% voice.groups.each do |group| %>
+                                <li>
+                                  <%= group.name %>
+                                </li>
+                              <% end %>
+                            </ul>
+                          <% end %>
+                        </td>
+                        <td class="text-secondary">
+                          <% if voice.gruppo? %>
+                            <ul>
+                              <% voice.users.each do |user| %>
+                                <li>
+                                  <%= "#{user.first_name} #{user.last_name}".html_safe %>
+                                </li>
+                              <% end %>
+                            </ul>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

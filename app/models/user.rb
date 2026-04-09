@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :groups
+  has_and_belongs_to_many :nodes
+  has_and_belongs_to_many :voices
 
   validates :username, :first_name, :last_name, :gender, :region, :province, :category, presence: true
   validates :username, uniqueness: true

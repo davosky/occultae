@@ -3,7 +3,9 @@
     <%= image_tag "users/users-logo.svg", class: "ms-3 users-logo", size: "48x48" %>
     &emsp; <span class="fs-3 fw-bold text-primary">Nouvo Utente</span>
     <span class="float-end">
-      <%= link_to "Chiudi", users_path, class: "btn btn-light" %>
+      <%= link_to users_path, class: "btn btn-light" do %>
+        <i class="fa-regular fa-circle-xmark"></i>&emsp;Chiudi
+      <% end %>
     </span>
   </p>
   <hr class="m-3"/>

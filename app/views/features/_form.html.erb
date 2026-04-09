@@ -1,0 +1,179 @@
+<!-- div class="row p-3" data-controller="modal-select" -->
+<div class="row p-3" data-controller="group-selector">
+  <%= form_with(model: feature) do |form| %>
+    <% if feature.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(feature.errors.count, "errori") %> hanno impedito il salvataggio dati:</h2>
+        <ul>
+          <% feature.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-6">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-list"></i>&emsp;<%= form.label :name %>
+          </span>
+          <%= form.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-cubes"></i>&emsp;<%= form.label :grouping %>
+          </span>
+          <%= form.text_field :grouping, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-folder-tree"></i>&nbsp;<%= form.label :node_id %>
+          </span>
+          <%= form.collection_select(:node_id, Node.all.order(:ancestry_depth, :name), :id, :name, {:include_blank => true}, {:class => "form-select"}) %>
+        </div>
+      </div>
+    </div>
+    <!-- Voices -->
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <div data-controller="nested-form">
+          <span class="<%= form_texts_class %>">
+            <i class="fa-solid fa-bars-progress"></i>
+            &nbsp;
+            Voci Attributo
+          </span>
+          <div class="mt-3">
+            <table class="table table-sm table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Raggruppamento</th>
+                  <th>Nome</th>
+                  <th>Tipo Valore</th>
+                  <th>Valore</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <%# Un solo container: il tbody %>
+              <tbody data-nested-form-target="container">
+                <%= form.fields_for :voices do |voice_form| %>
+                  <%= render "voice_fields", f: voice_form %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <template data-nested-form-target="template">
+            <%= form.fields_for :voices, Voice.new, child_index: "NEW_RECORD" do |voice_form| %>
+              <%= render "voice_fields", f: voice_form %>
+            <% end %>
+          </template>
+          <button class="btn btn-success mt-2 fs-6" data-action="nested-form#add">
+            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-bars-progress"></i>
+            &emsp;Aggiungi Voce Attributo
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="d-grid">
+          <%= form.button :submit, class: submit_button do %>
+            <% if action_name == "new" %>
+              <i class='fa-solid fa-plus'></i><i class='fa-solid fa-list'></i>&emsp;Crea Attributo
+            <% else %>
+              <i class="fa-solid fa-pencil"></i><i class='fa-solid fa-list'></i>&emsp;Modifica Attributo
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Voice Group's Modal -->
+    <div class="modal fade" id="groupsModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary fs-5 fw-bold">
+              <%= image_tag("groups/groups-logo.svg", class: "img-fluid", size: "52x52", alt: "groups-logo") %>
+              &emsp;
+              Seleziona Gruppi
+            </h5>
+          </div>
+          <div class="modal-body">
+            <input type="text"
+               class="form-control mb-3"
+               placeholder="Cerca gruppo..."
+               data-group-selector-target="search"
+               data-action="input->group-selector#filter">
+            <% Group.order(:name).each do |group| %>
+              <div class="form-check"
+               data-group-selector-target="groupItem"
+               data-name="<%= group.name.downcase %>">
+                <input class="form-check-input"
+                   type="checkbox"
+                   value="<%= group.id %>"
+                   data-name="<%= group.name %>"
+                   data-group-selector-target="checkbox"
+                   data-action="change->group-selector#change">
+                <label class="form-check-label"><%= group.name %></label>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <small class="text-muted" data-group-selector-target="count"></small>
+            <button class="btn btn-success fs-6 fw-bold"
+                data-action="group-selector#save">
+              Salva la Selezione
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Users Modal -->
+    <div class="modal fade" id="usersModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary fs-5 fw-bold">
+              <%= image_tag("users/users-logo.svg", class: "img-fluid", size: "52x52", alt: "users-logo") %>
+              &emsp;
+              Seleziona Utenti
+            </h5>
+          </div>
+          <div class="modal-body">
+            <input type="text"
+               class="form-control mb-3"
+               placeholder="Cerca utente..."
+               data-group-selector-target="userSearch"
+               data-action="input->group-selector#filterUsers">
+            <% User.order(:last_name, :first_name).each do |user| %>
+              <div class="form-check"
+               data-group-selector-target="userItem"
+               data-name="<%= "#{user.last_name} #{user.first_name}".downcase %>">
+                <input class="form-check-input"
+                   type="checkbox"
+                   value="<%= user.id %>"
+                   data-name="<%= "#{user.last_name} #{user.first_name}" %>"
+                   data-group-selector-target="userCheckbox"
+                   data-action="change->group-selector#changeUser">
+                <label class="form-check-label">
+                  <%= "#{user.last_name} #{user.first_name}" %>
+                </label>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <small class="text-muted" data-group-selector-target="userCount"></small>
+            <button class="btn btn-success fs-6 fw-bold"
+                data-action="group-selector#saveUsers">
+              Salva la Selezione
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

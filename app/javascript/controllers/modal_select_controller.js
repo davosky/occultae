@@ -87,36 +87,6 @@ export default class extends Controller {
     );
   }
 
-  confirmGroups(event) {
-    // Remove old hidden fields
-    const container = document.getElementById("group-hidden-fields");
-    container.innerHTML = "";
-
-    // Add blank one first (Rails convention for empty arrays)
-    const blank = document.createElement("input");
-    blank.type = "hidden";
-    blank.name = "user[group_ids][]";
-    blank.value = "";
-    container.appendChild(blank);
-
-    // Add one hidden field per checked group
-    this.groupCheckboxTargets
-      .filter((cb) => cb.checked)
-      .forEach((cb) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "user[group_ids][]";
-        input.value = cb.value;
-        container.appendChild(input);
-      });
-
-    this._updateSummary(
-      this.groupCheckboxTargets,
-      this.groupsSummaryTarget,
-      "Nessun gruppo selezionato",
-    );
-  }
-
   // ---- Privati ----
   _updateCount(checkboxes, countEl, label) {
     const count = checkboxes.filter((cb) => cb.checked).length;

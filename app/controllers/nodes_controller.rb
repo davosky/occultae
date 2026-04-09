@@ -12,6 +12,9 @@ class NodesController < ApplicationController
   def show
     @tree = @node.root.subtree.arrange(order: :name)
     @branch_ids = (@node.ancestor_ids + [ @node.id ])
+    @groups = @node.groups.order(name: :ASC)
+    @users = @node.users.order(last_name: :ASC)
+    @fearures = @node.features.order(grouping: :ASC, name: :ASC)
   end
 
   def new
@@ -66,6 +69,6 @@ class NodesController < ApplicationController
     end
 
     def node_params
-      params.expect(node: [ :name, :ancestry, :ancestry_depth, :parent_id ])
+      params.expect(node: [ :name, :ancestry, :ancestry_depth, :parent_id, group_ids: [], user_ids: [] ])
     end
 end

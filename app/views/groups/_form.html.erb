@@ -30,10 +30,10 @@
               <span data-modal-select-target="usersSummary" class="text-muted fst-italic">
                 <%= @group.users.any? ? @group.users.map { |u| "#{u.last_name} #{u.first_name}" }.join(", ") : "Nessun utente selezionato" %>
               </span>
-              <button type="button" class="btn btn-sm btn-outline-primary"
+              <button type="button" class="btn btn-sm btn-info"
               data-bs-toggle="modal"
               data-bs-target="#usersModal">
-                Seleziona
+                <i class="fa-regular fa-square-check"></i>&emsp;Seleziona
               </button>
             </div>
           </div>
@@ -45,7 +45,7 @@
               <%= form.submit class: submit_button %>
               &emsp;
               <%= link_to groups_path, class: "btn btn-secondary fs-6 fw-bold" do %>
-                Annulla
+                <i class="fa-solid fa-rotate-left"></i>&emsp;Annulla
               <% end %>
             </span>
           </div>
@@ -53,7 +53,7 @@
         <%# ===== MODALE UTENTI ===== %>
         <div class="modal fade" id="usersModal" tabindex="-1"
        data-action="shown.bs.modal->modal-select#usersModalOpened">
-          <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">
@@ -96,10 +96,10 @@
               </div>
               <div class="modal-footer justify-content-between">
                 <small class="text-muted" data-modal-select-target="usersCount"></small>
-                <button type="button" class="btn btn-primary"
+                <button type="button" class="btn btn-info"
                   data-bs-dismiss="modal"
                   data-action="click->modal-select#confirmUsers">
-                  Conferma
+                  <i class="fa-solid fa-check"></i>&emsp;Conferma
                 </button>
               </div>
             </div>

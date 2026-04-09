@@ -3,7 +3,9 @@
     <%= image_tag "groups/groups-logo.svg", class: "ms-3 groups-logo", size: "48x48" %>
     &emsp; <span class="fs-3 fw-bold text-primary">Nouvo Gruppo</span>
     <span class="float-end">
-      <%= link_to "Chiudi", groups_path, class: "btn btn-light" %>
+      <%= link_to groups_path, class: "btn btn-light" do %>
+        <i class="fa-regular fa-circle-xmark"></i>&emsp;Chiudi
+      <% end %>
     </span>
   </p>
   <hr class="m-3"/>
