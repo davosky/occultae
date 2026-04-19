@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="col-12 mb-3">
   <p class="ps-3">
     <%= user_avatar(@user)%>
     &emsp; <span class="fs-3 fw-bold text-primary">
@@ -235,60 +235,6 @@
           <% end %>
         <% else %>
           <p class="text-muted fst-italic">Nessun nodo accessibile per questo utente</p>
-        <% end %>
-      </div>
-    </div>
-    <hr class="text-primary mt-4 mb-4"/>
-    <div class="row">
-      <div class="col-12">
-        <h4 class="text-primary">
-          <%= image_tag "features/features-logo.svg", class: "ms-3", size: "36x36" %>
-          &emsp;
-          Attributi e voci per nodo, come Utente
-        </h4>
-        <hr/>
-        <% @nodes.each do |node| %>
-          <div class="mb-4">
-            <h5 class="text-primary">
-              <i class="fa-solid fa-folder"></i>&emsp;<%= link_to node.name, node %>
-            </h5>
-            <% if node.features.any? %>
-              <% node.features.each do |feature| %>
-                <div class="ms-4 mb-3">
-                  <h6 class="text-info">
-                    <i class="fa-solid fa-list"></i>&emsp;<%= link_to feature.name, feature %>
-                    <span class="text-secondary fst-italic ms-2">(<%= feature.grouping %>)</span>
-                  </h6>
-                  <% if feature.voices.any? %>
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th class="text-secondary"><i class="fa-solid fa-cubes"></i>&emsp;Raggruppamento</th>
-                          <th class="text-secondary"><i class="fa-regular fa-rectangle-list"></i>&emsp;Voce</th>
-                          <th class="text-secondary"><i class="fa-solid fa-stop"></i>&emsp;Tipo</th>
-                          <th class="text-secondary"><i class="fa-regular fa-square"></i>&emsp;Valore</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% feature.voices.order(:grouping, :name).each do |voice| %>
-                          <tr>
-                            <td class="text-secondary"><%= voice.grouping %></td>
-                            <td class="text-info fw-bold"><%= voice.name %></td>
-                            <td class="text-secondary"><%= voice.value_type %></td>
-                            <td><%= value_type_image(voice) %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
-                  <% else %>
-                    <p class="text-muted ms-4 fst-italic">Nessuna voce presente</p>
-                  <% end %>
-                </div>
-              <% end %>
-            <% else %>
-              <p class="text-muted ms-4 fst-italic">Nessun attributo presente</p>
-            <% end %>
-          </div>
         <% end %>
       </div>
     </div>
