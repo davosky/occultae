@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_30_171904) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_081710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,7 +59,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_30_171904) do
   create_table "nodes", force: :cascade do |t|
     t.string "ancestry"
     t.integer "ancestry_depth"
+    t.string "application_filters"
     t.datetime "created_at", null: false
+    t.boolean "enabled"
+    t.boolean "enabled_login"
     t.string "name"
     t.datetime "updated_at", null: false
   end
@@ -117,7 +120,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_30_171904) do
     t.string "institute"
     t.string "last_name"
     t.string "office"
-    t.string "password"
+    t.string "password_digest"
     t.string "province"
     t.string "region"
     t.datetime "updated_at", null: false

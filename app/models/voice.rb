@@ -15,7 +15,12 @@ class Voice < ApplicationRecord
     end
   end
 
+  validates :name, :grouping, :feature_id, presence: true
+  validates :value_type, :value_option, presence: true
+
+  # value_type: 0=bottone (button/toggle), 1=gruppo (group-assigned)
   enum :value_type,   { bottone: 0, gruppo: 1 }
+  # value_option: 0=si (yes), 1=no, 2=gr (group-inherited)
   enum :value_option, { si: 0, no: 1, gr: 2 }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -27,6 +32,6 @@ class Voice < ApplicationRecord
   def assign_groups_from_csv
     return unless @group_ids_csv.present?
 
-    self.group_ids = @group_ids_csv.split(",")
+    self.group_ids = @group_ids_csv.split(",").map(&:strip).reject(&:blank?)
   end
 end

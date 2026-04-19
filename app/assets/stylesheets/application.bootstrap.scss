@@ -1,4 +1,16 @@
 @import "variables";
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "tertiary": $tertiary,
+  "quaternary": $quaternary,
+);
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 @import "bootswatch";

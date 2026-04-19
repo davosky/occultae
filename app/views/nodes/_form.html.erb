@@ -22,6 +22,28 @@
       </span>
       <%= form.collection_select(:parent_id, Node.all.order(:ancestry_depth, :name), :id, :name, {:include_blank => true}, {:class => "form-select"}) %>
     </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-check form-switch">
+          <%= form.check_box :enabled, class: "form-check-input", role: "switch" %>
+          <%= form.label :enabled, class: "form-check-label" %>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-check form-switch">
+          <%= form.check_box :enabled_login, class: "form-check-input", role: "switch" %>
+          <%= form.label :enabled_login, class: "form-check-label" %>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-1">
+          <span class="input-group-text input-group-text-fixed <%= form_elements_class %>">
+            <i class="fa-solid fa-folder"></i>&emsp;<%= form.label :application_filters %>
+          </span>
+          <%= form.text_field :application_filters, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
     <hr/>
     <!-- GROUPS BUTTON -->
     <div class="input-group mb-1">

@@ -2,7 +2,8 @@ class FeaturesController < ApplicationController
   before_action :set_feature, only: %i[ show edit update destroy confirm_delete ]
 
   def index
-    @features = Feature.all
+    @q = Feature.ransack(params[:q])
+    @features = @q.result(distinct: true).order(:grouping, :name)
   end
 
   def show

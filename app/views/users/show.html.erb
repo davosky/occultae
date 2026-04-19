@@ -50,10 +50,6 @@
               <td class="text-dark"><%= @user.username %></td>
             </tr>
             <tr>
-              <td class="text-primary"><i class="fa-solid fa-key"></i>&emsp;Password:</td>
-              <td class="text-dark"><%= @user.password %></td>
-            </tr>
-            <tr>
               <td class="text-primary"><i class="fa-solid fa-at"></i>&emsp;E-Mail:</td>
               <td class="text-dark"><%= @user.email %></td>
             </tr>
@@ -99,7 +95,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @user.groups.each do |group| %>
+            <% @groups.each do |group| %>
               <tr>
                 <td>
                   <%= link_to group do %>
@@ -127,7 +123,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @user.nodes.each do |node| %>
+            <% @nodes.each do |node| %>
               <tr>
                 <td>
                   <%= link_to node do %>
@@ -144,12 +140,114 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-primary">
+          <i class="fa-solid fa-shield-halved fs-4"></i>
+          &emsp;
+          Facolt&agrave; dell&rsquo;utente su tutti i nodi accessibili
+        </h4>
+        <hr/>
+        <% if @all_accessible_nodes.any? %>
+          <% @all_accessible_nodes.each do |node| %>
+            <% access = node_access_mode(node, @user) %>
+            <div class="mb-5">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <h5 class="text-primary mb-0">
+                  <i class="fa-solid fa-folder"></i>&emsp;<%= link_to node.name, node %>
+                </h5>
+                <% if node.enabled %>
+                  <span class="badge bg-success">Abilitato</span>
+                <% else %>
+                  <span class="badge bg-secondary">Non abilitato</span>
+                <% end %>
+                <% if node.enabled_login %>
+                  <span class="badge bg-success">Login abilitato</span>
+                <% end %>
+              </div>
+              <div class="ms-4 mb-3 text-muted small">
+                <% if access[:direct] %>
+                  <span class="me-2"><i class="fa-solid fa-user text-tertiary"></i> Assegnato direttamente</span>
+                <% end %>
+                &emsp;
+                <% access[:via_groups].each do |grp| %>
+                  <span class="me-2"><i class="fa-solid fa-users text-quaternary"></i> Tramite gruppo:&emsp;<i><%= grp.name %></i></span>
+                <% end %>
+              </div>
+              <% if node.features.any? %>
+                <% node.features.each do |feature| %>
+                  <div class="ms-4 mb-3">
+                    <h6 class="text-info">
+                      <i class="fa-solid fa-list"></i>&emsp;<%= feature.name %>
+                      <span class="text-secondary fst-italic ms-2">(<%= feature.grouping %>)</span>
+                    </h6>
+                    <% voices = feature.voices.order(:grouping, :name) %>
+                    <% if voices.any? %>
+                      <table class="table table-sm table-hover ms-2">
+                        <thead>
+                          <tr>
+                            <th class="text-secondary"><i class="fa-solid fa-cubes"></i>&emsp;Raggruppamento</th>
+                            <th class="text-secondary"><i class="fa-regular fa-rectangle-list"></i>&emsp;Voce</th>
+                            <th class="text-secondary"><i class="fa-solid fa-stop"></i>&emsp;Tipo</th>
+                            <th class="text-secondary"><i class="fa-solid fa-key"></i>&emsp;Facolt&agrave;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% voices.each do |voice| %>
+                            <% can_use = user_voice_access(voice, @user, @user_group_ids) %>
+                            <tr class="<%= can_use ? '' : 'table-light text-muted' %>">
+                              <td class="text-secondary"><%= voice.grouping %></td>
+                              <td class="<%= can_use ? 'text-info fw-bold' : 'text-muted' %>"><%= voice.name %></td>
+                              <td class="text-secondary"><%= voice.value_type %></td>
+                              <td>
+                                <% if voice.bottone? %>
+                                  <% if can_use %>
+                                    <i class="fa-solid fa-square-check text-success"></i>&emsp;<span class="text-success small">Abilitata</span>
+                                  <% else %>
+                                    <i class="fa-solid fa-square-xmark text-danger"></i>&emsp;<span class="text-danger small">Non abilitata</span>
+                                  <% end %>
+                                <% elsif voice.gruppo? %>
+                                  <% matching_groups = user_voice_access_groups(voice, @user_group_ids) %>
+                                  <% matching_users  = user_voice_access_users(voice, @user) %>
+                                  <% if can_use %>
+                                    <i class="fa-solid fa-square-check text-success"></i>&emsp;
+                                    <% matching_groups.each do |grp| %>
+                                      <span class="badge bg-quaternary me-1"><i class="fa-solid fa-users"></i>&emsp;<%= grp.name %></span>
+                                    <% end %>
+                                    <% matching_users.each do |usr| %>
+                                      <span class="badge bg-quaternary me-1"><i class="fa-solid fa-user"></i>&emsp;<%= usr.username %></span>
+                                    <% end %>
+                                  <% else %>
+                                    <i class="fa-solid fa-square-xmark text-danger"></i>&emsp;<span class="text-danger small">Nessun gruppo o utente abilitato</span>
+                                  <% end %>
+                                <% end %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    <% else %>
+                      <p class="text-muted ms-4 fst-italic">Nessuna voce presente</p>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% else %>
+                <p class="text-muted ms-4 fst-italic">Nessun attributo presente su questo nodo</p>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-muted fst-italic">Nessun nodo accessibile per questo utente</p>
+        <% end %>
+      </div>
+    </div>
+    <hr class="text-primary mt-4 mb-4"/>
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-primary">
           <%= image_tag "features/features-logo.svg", class: "ms-3", size: "36x36" %>
           &emsp;
           Attributi e voci per nodo, come Utente
         </h4>
         <hr/>
-        <% @user.nodes.order(:ancestry_depth, :name).each do |node| %>
+        <% @nodes.each do |node| %>
           <div class="mb-4">
             <h5 class="text-primary">
               <i class="fa-solid fa-folder"></i>&emsp;<%= link_to node.name, node %>

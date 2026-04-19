@@ -8,7 +8,14 @@ class UsersController < ApplicationController
 
   def show
     @groups = @user.groups.order(name: :asc)
-    @nodes = @user.nodes.order(name: :ASC)
+    @nodes = @user.nodes.includes(features: :voices).order(:ancestry_depth, :name)
+
+    group_node_ids = Node.joins(:groups).where(groups: { id: @user.group_ids }).pluck(:id)
+    all_node_ids = (@user.node_ids + group_node_ids).uniq
+    @all_accessible_nodes = Node.where(id: all_node_ids)
+                                .includes(features: { voices: [ :groups, :users ] })
+                                .order(:ancestry_depth, :name)
+    @user_group_ids = @user.group_ids
   end
 
   def new
@@ -65,6 +72,10 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :username, :email, :password, :first_name, :last_name, :gender, :birth_date, :birth_place, :fiscal_code, :category, :region, :province, :institute, :office, group_ids: [], node_ids: [] ])
+      permitted = params.expect(user: [ :username, :email, :password, :password_confirmation, :first_name, :last_name, :gender, :birth_date, :birth_place, :fiscal_code, :category, :region, :province, :institute, :office, group_ids: [], node_ids: [] ])
+      # Don't overwrite password on update if the field was left blank
+      permitted.delete(:password) if permitted[:password].blank?
+      permitted.delete(:password_confirmation) if permitted[:password_confirmation].blank?
+      permitted
     end
 end

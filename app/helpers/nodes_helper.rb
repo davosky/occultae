@@ -38,4 +38,20 @@ module NodesHelper
       "<i class='fa-solid fa-square-xmark text-danger'></i>".html_safe
     end
   end
+
+  def general_enabled(node)
+    if node.enabled == true
+      tag.button("Abilitata", type: "button", class: "btn btn-success")
+    else
+      tag.button("Non Abilitata", type: "button", class: "btn btn-light")
+    end
+  end
+
+  def general_enabled_login(node)
+    if node.enabled_login == true
+      tag.button("Abilitata ai login", type: "button", class: "btn btn-success")
+    else
+      tag.button("Non Abilitata ai login", type: "button", class: "btn btn-light")
+    end
+  end
 end

@@ -2,7 +2,8 @@ class VoicesController < ApplicationController
   before_action :set_voice, only: %i[ show edit update destroy ]
 
   def index
-    @voices = Voice.all
+    @q = Voice.ransack(params[:q])
+    @voices = @q.result(distinct: true).order(:grouping, :name)
   end
 
   def show

@@ -68,6 +68,9 @@ it:
         users: Utenti
       node:
         name: Nome Nodo
+        enabled: Abilitata
+        enabled_login: Abilitata ai login
+        application_filters: Filtri applicativi
         ancestry: Livello
         ancestry_depth: Profondità Livello
         parent: Nodo Padre
