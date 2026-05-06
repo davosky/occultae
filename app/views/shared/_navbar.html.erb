@@ -59,7 +59,7 @@
                   &nbsp;
                   Crediti
                 <% end %>
-                <%= link_to destroy_supervisor_session_path, method: :get, class: "dropdown-item" do %>
+                <%= link_to destroy_supervisor_session_path, data: { turbo_method: :delete }, class: "dropdown-item" do %>
                   <i class="fa-solid fa-door-open"></i>
                   &nbsp;
                   Esci

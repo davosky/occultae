@@ -27,6 +27,10 @@ class Voice < ApplicationRecord
     [ "name", "grouping", "value_option", "value_type" ]
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
   private
 
   def assign_groups_from_csv

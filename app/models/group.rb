@@ -17,7 +17,11 @@ class Group < ApplicationRecord
   validate :cannot_include_itself
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "name", "users" ]
+    [ "name" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
   end
 
   private
