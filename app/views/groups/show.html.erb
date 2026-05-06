@@ -91,6 +91,28 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-primary">
+          <%= image_tag "groups/groups-logo.svg", class: "ms-3", size: "36x36" %>
+          &emsp;
+          Gruppi figli
+        </h4>
+        <hr/>
+        <% if @group.child_groups.any? %>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <% @group.child_groups.order(:name).each do |child| %>
+              <%= link_to child, class: "badge text-bg-info text-decoration-none fs-6" do %>
+                <i class="fa-solid fa-people-group"></i>&emsp;<%= child.name %>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-muted fst-italic ms-3">Nessun gruppo figlio assegnato</p>
+        <% end %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-primary">
           <%= image_tag "features/features-logo.svg", class: "ms-3", size: "36x36" %>
           &emsp;
           Attributi e voci per nodo, come Gruppo

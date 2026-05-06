@@ -1,8 +1,8 @@
 class FeaturesController < ApplicationController
-  before_action :set_feature, only: %i[ show edit update destroy confirm_delete ]
+  load_and_authorize_resource
 
   def index
-    @q = Feature.ransack(params[:q])
+    @q = Feature.accessible_by(current_ability).ransack(params[:q])
     @features = @q.result(distinct: true).order(:grouping, :name)
   end
 
@@ -11,7 +11,7 @@ class FeaturesController < ApplicationController
   end
 
   def new
-    @feature = Feature.new(node_id: params[:node_id])
+    @feature.node_id = params[:node_id]
     @feature.voices.build
   end
 
@@ -20,8 +20,6 @@ class FeaturesController < ApplicationController
   end
 
   def create
-    @feature = Feature.new(feature_params)
-
     respond_to do |format|
       if @feature.save
         format.html { redirect_to features_path, notice: "Feature was successfully created." }
@@ -66,12 +64,8 @@ class FeaturesController < ApplicationController
       voice[:user_ids] = voice[:user_ids].split(",") if voice[:user_ids].is_a?(String)
     end
   end
-    def set_feature
-      @feature = Feature.find(params.expect(:id))
-    end
 
-    def feature_params
-      # params.expect(feature: [ :name, :grouping, :node_id ])
-      params.require(:feature).permit(:name, :grouping, :node_id, voices_attributes: [ :id, :name, :grouping, :value_option, :value_type, :_destroy, group_ids: [], user_ids: [] ])
-    end
+  def feature_params
+    params.require(:feature).permit(:name, :grouping, :node_id, voices_attributes: [ :id, :name, :grouping, :value_option, :value_type, :_destroy, group_ids: [], user_ids: [] ])
+  end
 end

@@ -1,8 +1,8 @@
 class NodesController < ApplicationController
-  before_action :set_node, only: %i[ show edit update destroy ]
+  load_and_authorize_resource
 
   def index
-    @q = Node.ransack(params[:q])
+    @q = Node.accessible_by(current_ability).ransack(params[:q])
     @nodes = @q.result(distinct: true).order(:ancestry_depth, :name)
 
     @tree = Node.arrange(order: :name)
@@ -18,15 +18,12 @@ class NodesController < ApplicationController
   end
 
   def new
-    @node = Node.new
   end
 
   def edit
   end
 
   def create
-    @node = Node.new(node_params)
-
     respond_to do |format|
       if @node.save
         format.html { redirect_to nodes_path, notice: "Node was successfully created." }
@@ -60,15 +57,11 @@ class NodesController < ApplicationController
   end
 
   def confirm_delete
-    @node = Node.find(params[:id])
   end
 
   private
-    def set_node
-      @node = Node.find(params.expect(:id))
-    end
 
-    def node_params
-      params.expect(node: [ :name, :enabled, :enabled_login, :application_filters, :ancestry, :ancestry_depth, :parent_id, group_ids: [], user_ids: [] ])
-    end
+  def node_params
+    params.expect(node: [ :name, :enabled, :enabled_login, :application_filters, :ancestry, :ancestry_depth, :parent_id, group_ids: [], user_ids: [] ])
+  end
 end

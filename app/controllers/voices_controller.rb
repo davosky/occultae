@@ -1,8 +1,8 @@
 class VoicesController < ApplicationController
-  before_action :set_voice, only: %i[ show edit update destroy ]
+  load_and_authorize_resource
 
   def index
-    @q = Voice.ransack(params[:q])
+    @q = Voice.accessible_by(current_ability).ransack(params[:q])
     @voices = @q.result(distinct: true).order(:grouping, :name)
   end
 
@@ -10,15 +10,12 @@ class VoicesController < ApplicationController
   end
 
   def new
-    @voice = Voice.new
   end
 
   def edit
   end
 
   def create
-    @voice = Voice.new(voice_params)
-
     respond_to do |format|
       if @voice.save
         format.html { redirect_to @voice, notice: "Voice was successfully created." }
@@ -52,10 +49,6 @@ class VoicesController < ApplicationController
   end
 
   private
-
-  def set_voice
-    @voice = Voice.find(params[:id])
-  end
 
   def voice_params
     params.require(:voice).permit(:name, :grouping, :value_option, :value_type, :feature_id, group_ids: [], user_ids: [])

@@ -6,6 +6,8 @@ class Ability
   def initialize(user)
     return unless user.present?
 
+    alias_action :confirm_delete, to: :destroy
+
     # ==================================================================
     # Boss: full access
     if user.boss?

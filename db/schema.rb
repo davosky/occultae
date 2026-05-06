@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_081710) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_06_091411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_081710) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "groups_groups", force: :cascade do |t|
+    t.bigint "child_group_id", null: false
+    t.bigint "parent_group_id", null: false
+    t.index ["child_group_id"], name: "index_groups_groups_on_child_group_id"
+    t.index ["parent_group_id", "child_group_id"], name: "index_groups_groups_on_parent_group_id_and_child_group_id", unique: true
+    t.index ["parent_group_id"], name: "index_groups_groups_on_parent_group_id"
   end
 
   create_table "groups_nodes", force: :cascade do |t|

@@ -1,8 +1,8 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[ show edit update destroy ]
+  load_and_authorize_resource
 
   def index
-    @q = Group.ransack(params[:q])
+    @q = Group.accessible_by(current_ability).ransack(params[:q])
     @groups = @q.result(distinct: true).order(name: :asc)
   end
 
@@ -12,15 +12,12 @@ class GroupsController < ApplicationController
   end
 
   def new
-    @group = Group.new
   end
 
   def edit
   end
 
   def create
-    @group = Group.new(group_params)
-
     respond_to do |format|
       if @group.save
         format.html { redirect_to groups_path, notice: "Group was successfully created." }
@@ -54,16 +51,11 @@ class GroupsController < ApplicationController
   end
 
   def confirm_delete
-    @group = Group.find(params[:id])
   end
 
   private
 
-  def set_group
-    @group = Group.find(params[:id])
-  end
-
   def group_params
-    params.require(:group).permit(:name, user_ids: [], node_ids: [])
+    params.require(:group).permit(:name, user_ids: [], node_ids: [], child_group_ids: [])
   end
 end
